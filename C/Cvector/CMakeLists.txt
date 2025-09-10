@@ -1,10 +1,9 @@
 cmake_minimum_required(VERSION 3.11)
 
-project(Cvector)
+project(cvector C)
 
-add_executable(${PROJECT_NAME}
-	./main.c
-	./Cvector.c
+option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+
+add_library(cvector
+	source/Cvector.c
 )
-
-#target_include_directories(${PROJECT_NAME} PRIVATE include)
