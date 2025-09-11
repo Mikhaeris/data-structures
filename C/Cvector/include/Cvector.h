@@ -7,24 +7,25 @@
 typedef struct Cvector Cvector;
 
 /* constructor */
-Cvector *dinit_vec(size_t size, size_t data_size);
-Cvector *cinit_vec(Cvector *vec);
-void destruct_vec(Cvector *vec);
+Cvector *vec_dinit(size_t size, size_t data_size);
+Cvector *vec_cinit(Cvector *vec);
+void vec_destruct(Cvector **vec);
 
 /* capacity */
-uint8_t empty(Cvector *vec);
-size_t get_size(Cvector *vec);
-size_t get_capacity(Cvector *vec);
+uint8_t vec_empty(Cvector *vec);
+size_t vec_size(Cvector *vec);
+size_t vec_capacity(Cvector *vec);
+size_t vec_datasize(Cvector *vec);
 
 /* element access */
-void *at_vec(Cvector *vec, size_t pos);
-void *front_vec(Cvector *vec);
-void *back_vec(Cvector *vec);
+void *vec_at(Cvector *vec, size_t pos);
+void *vec_front(Cvector *vec);
+void *vec_back(Cvector *vec);
 
 /* modifiers */
-void *insert_vec(Cvector *vec, size_t pos);
-void erase_vec(Cvector *vec, size_t pos);
-void *push_vec(Cvector *vec);
-void pop_vec(Cvector *vec);
+void *vec_insert(Cvector *vec, size_t pos);
+void vec_erase(Cvector *vec, size_t pos);
+void *vec_push(Cvector *vec);
+void vec_pop(Cvector *vec);
 
 #endif /* CVECTOR_H */

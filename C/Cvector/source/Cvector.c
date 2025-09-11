@@ -12,15 +12,16 @@ struct Cvector {
 };
 
 /* ------------- private functions ------------- */
-static void error_vec(const char *error) {
+static void vec_error(const char *error) {
     fprintf(stderr, "%s\n", error);
 }
 
-static void resize_vec(Cvector *vec) {
+static void vec_resize(Cvector *vec) {
     vec->capacity_ *= 2;
     vec->data_ = realloc(vec->data_, vec->size_ * vec->capacity_);
     if (vec->data_ == NULL) {
-        error_vec("error: bad alloc in realloc_vec");
+        vec_error("error: bad alloc in realloc_vec");
+        exit(1);
     }
 }
 
@@ -32,10 +33,11 @@ static void set_zero(Cvector *vec, void *where) {
 
 /* ------------------------ public functions ------------------------ */
 /* constructor */
-Cvector *dinit_vec(size_t size, size_t data_size) {
+Cvector *vec_dinit(size_t size, size_t data_size) {
     Cvector *vec = (Cvector *)malloc(sizeof(Cvector));
     if (vec == NULL) {
-        error_vec("error: bad alloc in dinit_vec");
+        vec_error("error: bad alloc in dinit_vec");
+        return NULL;
     }
 
     vec->size_ = 0;
@@ -46,10 +48,11 @@ Cvector *dinit_vec(size_t size, size_t data_size) {
     return vec;
 }
 
-Cvector *cinit_vec(Cvector *other) {
+Cvector *vec_cinit(Cvector *other) {
     Cvector *vec = (Cvector *)malloc(sizeof(Cvector));
     if (vec == NULL) {
-        error_vec("error: bad alloc in dinit_vec");
+        vec_error("error: bad alloc in dinit_vec");
+        return NULL;
     }
 
     vec->size_ = other->size_;
@@ -61,50 +64,48 @@ Cvector *cinit_vec(Cvector *other) {
     return vec;
 }
 
-void destruct_vec(Cvector *vec) {
-    vec->size_ = 0;
-    vec->capacity_ = 0;
-    vec->data_size_ = 0;
-    free(vec->data_);
-    vec->data_ = NULL;
-    free(vec);
+void vec_destruct(Cvector **vec) {
+    free((*vec)->data_);
+    free(*vec);
+    vec = NULL;
 }
 
 /* capacity */
-uint8_t empty(Cvector *vec) {
+uint8_t vec_empty(Cvector *vec) {
     return (vec->size_ != 0) ? 0 : 1;
 }
 
-size_t get_size(Cvector *vec) {
+size_t vec_size(Cvector *vec) {
     return vec->size_;
 }
 
-size_t get_capacity(Cvector *vec) {
+size_t vec_capacity(Cvector *vec) {
     return vec->capacity_;
 }
 
-size_t get_data_size(Cvector *vec) {
+size_t vec_datasize(Cvector *vec) {
     return vec->data_size_;
 }
 
 /* element access */
-void *at_vec(Cvector *vec, size_t pos) {
+void *vec_at(Cvector *vec, size_t pos) {
     if (0 > pos && pos > vec->size_) {
+        printf("err");
         return NULL;
     }
     return vec->data_ + (vec->data_size_ * pos);
 }
 
-void *front_vec(Cvector *vec) {
+void *vec_front(Cvector *vec) {
     return vec->data_;
 }
 
-void *back_vec(Cvector *vec) {
+void *vec_back(Cvector *vec) {
     return vec->data_ + ((vec->size_-1) * vec->data_size_);
 }
 
 /* modifiers */
-void *insert_vec(Cvector *vec, size_t pos) {
+void *vec_insert(Cvector *vec, size_t pos) {
     if (vec == NULL) {
         return NULL;
     }
@@ -114,7 +115,7 @@ void *insert_vec(Cvector *vec, size_t pos) {
     }
 
     if (vec->size_ >= vec->capacity_) {
-        resize_vec(vec);
+        vec_resize(vec);
     }
 
     void *where = (uint8_t *)vec->data_ + (pos * vec->data_size_);
@@ -126,7 +127,11 @@ void *insert_vec(Cvector *vec, size_t pos) {
     return where;
 }
 
-void erase_vec(Cvector *vec, size_t pos) {
+void vec_erase(Cvector *vec, size_t pos) {
+    if (vec == NULL) {
+        return;
+    }
+
     if (0 > pos && pos > vec->size_) {
         return;
     }
@@ -139,9 +144,13 @@ void erase_vec(Cvector *vec, size_t pos) {
     set_zero(vec, last);
 }
 
-void *push_vec(Cvector *vec) {
+void *vec_push(Cvector *vec) {
+    if (vec == NULL) {
+        return NULL;
+    }
+
     if (vec->size_ >= vec->capacity_) {
-        resize_vec(vec);
+        vec_resize(vec);
     }
 
     void *where = (uint8_t *)vec->data_ + (vec->size_ * vec->data_size_); 
@@ -150,7 +159,10 @@ void *push_vec(Cvector *vec) {
     return where;
 }
 
-void pop_vec(Cvector *vec) {
+void vec_pop(Cvector *vec) {
+    if (vec == NULL) {
+        return;
+    }
     if (vec->size_ == 0) {
         return;
     }
