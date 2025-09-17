@@ -7,13 +7,18 @@
 #include <time.h>
 
 void print_vec(Cvector *vec);
+void fill_vec(Cvector *vec, size_t size);
 void shuffle_vec(Cvector *vec);
 void insertion_sort(Cvector *vec);
 
 int main() {
     srand(time(NULL));
     const int size = 10;
-    Cvector *vec = vecint_linit(size, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+    /* Cvector *vec = vecint_linit(size, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'); */
+    Cvector *vec = vecint_dinit(size);
+    printf("vec data_size_: %llu\n", (unsigned long long)vec_datasize(vec));
+    fill_vec(vec, size);
+
     printf("init vec: ");
     print_vec(vec);
 
@@ -34,6 +39,12 @@ void print_vec(Cvector *vec) {
         printf("%d ", *vecint_at(vec, i));
     }
     puts("");
+}
+
+void fill_vec(Cvector *vec, size_t count) {
+    for (int i = 0; i < count; ++i) {
+        *vecint_push(vec) = i;
+    }
 }
 
 static void swap(cint_t *a, cint_t *b) {
