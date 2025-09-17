@@ -8,7 +8,6 @@ typedef struct Cvector Cvector;
 
 /* constructor */
 Cvector *vec_dinit(size_t size, size_t data_size);
-Cvector *vec_cinit(Cvector *vec);
 void vec_destruct(Cvector **vec);
 
 /* capacity */

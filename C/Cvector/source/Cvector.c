@@ -41,29 +41,9 @@ Cvector *vec_dinit(size_t size, size_t data_size) {
     }
 
     vec->size_ = 0;
-    /* if size == 0 => 0 * 2 = 0
-     * => push_el call vec_resize()
-     * in resize: realloc(data_, size(0) * capacity(0)) => 0 bytes realloc and 0 bytec create
-     * => realooc return NULL => BOOM!!! */
     vec->capacity_ = (size != 0) ? size * 2 : 10;
     vec->data_size_ = data_size;
     vec->data_ = malloc(vec->capacity_ * vec->data_size_);
-
-    return vec;
-}
-
-Cvector *vec_cinit(Cvector *other) {
-    Cvector *vec = (Cvector *)malloc(sizeof(Cvector));
-    if (vec == NULL) {
-        vec_error("error: bad alloc in dinit_vec");
-        return NULL;
-    }
-
-    vec->size_ = other->size_;
-    vec->capacity_ = other->capacity_;
-    vec->data_size_ = other->data_size_;
-    vec->data_ = malloc(vec->capacity_ * vec->data_size_);
-    memcpy(vec->data_, other->data_, vec->data_size_ * (vec->capacity_));
 
     return vec;
 }
@@ -94,7 +74,7 @@ size_t vec_datasize(Cvector *vec) {
 /* element access */
 void *vec_at(Cvector *vec, size_t pos) {
     if (0 > pos && pos > vec->size_) {
-        printf("err");
+        vec_error("error: out of range");
         return NULL;
     }
     return vec->data_ + (vec->data_size_ * pos);
@@ -114,7 +94,7 @@ void *vec_insert(Cvector *vec, size_t pos) {
         return NULL;
     }
 
-    if (0 > pos && pos > vec->size_) {
+    if (pos < 0 && pos > vec->size_) {
         return NULL;
     }
 
@@ -136,7 +116,7 @@ void vec_erase(Cvector *vec, size_t pos) {
         return;
     }
 
-    if (0 > pos && pos > vec->size_) {
+    if (pos < 0 && pos > vec->size_) {
         return;
     }
 
@@ -167,6 +147,7 @@ void vec_pop(Cvector *vec) {
     if (vec == NULL) {
         return;
     }
+
     if (vec->size_ == 0) {
         return;
     }
