@@ -18,7 +18,7 @@ static void vec_error(const char *error) {
 
 static void vec_resize(Cvector *vec) {
     vec->capacity_ *= 2;
-    vec->data_ = realloc(vec->data_, vec->size_ * vec->capacity_);
+    vec->data_ = realloc(vec->data_, vec->capacity_ * vec->data_size_);
     if (vec->data_ == NULL) {
         vec_error("error: bad alloc in realloc_vec");
         exit(1);
@@ -41,7 +41,11 @@ Cvector *vec_dinit(size_t size, size_t data_size) {
     }
 
     vec->size_ = 0;
-    vec->capacity_ = size * 2;
+    /* if size == 0 => 0 * 2 = 0
+     * => push_el call vec_resize()
+     * in resize: realloc(data_, size(0) * capacity(0)) => 0 bytes realloc and 0 bytec create
+     * => realooc return NULL => BOOM!!! */
+    vec->capacity_ = (size != 0) ? size * 2 : 10;
     vec->data_size_ = data_size;
     vec->data_ = malloc(vec->capacity_ * vec->data_size_);
 
