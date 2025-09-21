@@ -20,6 +20,7 @@ size_t vec_datasize(Cvector *vec);
 void *vec_at(Cvector *vec, size_t pos);
 void *vec_front(Cvector *vec);
 void *vec_back(Cvector *vec);
+void *vec_data(Cvector *vec);
 
 /* modifiers */
 void *vec_insert(Cvector *vec, size_t pos);

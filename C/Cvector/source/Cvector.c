@@ -88,6 +88,10 @@ void *vec_back(Cvector *vec) {
     return vec->data_ + ((vec->size_-1) * vec->data_size_);
 }
 
+void *vec_data(Cvector *vec) {
+    return vec->data_;
+}
+
 /* modifiers */
 void *vec_insert(Cvector *vec, size_t pos) {
     if (vec == NULL) {
