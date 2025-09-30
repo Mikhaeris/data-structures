@@ -38,7 +38,7 @@ Cvector *vec_dinit(size_t size, size_t data_size);
 ```
 
 #### Parameters:
-size      - start size
+size      - start size  
 data_size - size of data type (like int)
 
 #### Explanation
@@ -234,7 +234,7 @@ void *vec_insert(Cvector *vec, size_t pos);
 ```
 
 #### Parameters:
-*vec - pointer to struct
+*vec - pointer to struct  
 pos  - position to insert
 
 #### Explanation
@@ -264,7 +264,7 @@ void vec_erase(Cvector *vec, size_t pos);
 ```
 
 #### Parameters:
-*vec - pointer to struct
+*vec - pointer to struct  
 pos  - position to erase
 
 #### Explanation
