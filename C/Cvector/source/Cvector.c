@@ -40,7 +40,7 @@ Cvector *vec_dinit(size_t size, size_t data_size) {
         return NULL;
     }
 
-    vec->size_ = 0;
+    vec->size_ = size;
     vec->capacity_ = (size != 0) ? size * 2 : 10;
     vec->data_size_ = data_size;
     vec->data_ = malloc(vec->capacity_ * vec->data_size_);
