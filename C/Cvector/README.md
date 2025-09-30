@@ -159,7 +159,7 @@ size_t datasize = vec_datasize(vec);
 
 ## Element access
 
-### Get\Set element in position
+### Get/Set element in position
 
 #### Definition:
 ```
@@ -167,7 +167,7 @@ void *vec_at(Cvector *vec, size_t pos);
 ```
 
 #### Parameters:
-*vec - pointer to struct
+*vec - pointer to struct  
 pos  - position of the element to return
 
 #### Explanation
