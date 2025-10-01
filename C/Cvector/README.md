@@ -74,7 +74,7 @@ Pointer to pointer to struct, because pointer to struct may means arr of structs
 
 !!!Always use this function, because vec_dinit allocate memory!!!
 
-#### Expamle:
+#### Example:
 ```
 vec_destruct(&vec);
 ```
@@ -95,7 +95,7 @@ uint8_t vec_empty(Cvector *vec);
 
 Return 1 if vec empty or 0 if vec not empty
 
-#### Expamle:
+#### Example:
 ```
 printf("%s\n", (vec_empty(vec)) ? "vector empty" : "vector not empty");
 ```
@@ -114,7 +114,7 @@ size_t vec_size(Cvector *vec);
 
 Return count elements in vector
 
-#### Expamle:
+#### Example:
 ```
 size_t size = vec_size(vec);
 ```
@@ -133,7 +133,7 @@ size_t vec_capacity(Cvector *vec);
 
 Returns how many elements can be inserted before reallocation
 
-#### Expamle:
+#### Example:
 ```
 size_t capacity = vec_capacity(vec);
 ```
@@ -152,7 +152,7 @@ size_t vec_datasize(Cvector *vec);
 
 Return size of type elements that stored in vector
 
-#### Expamle:
+#### Example:
 ```
 size_t datasize = vec_datasize(vec);
 ```
@@ -176,7 +176,7 @@ vec_at - vector at position
 
 Return void pointer to element
 
-#### Expamle:
+#### Example:
 get element
 ```
 printf("%d\n", *(int *)vec_at(vec, 1));
@@ -200,7 +200,7 @@ void *vec_front(Cvector *vec);
 
 Return void pointer to front of data
 
-#### Expamle:
+#### Example:
 ```
 printf("%d\n", *(int *)vec_front(vec));
 ```
@@ -219,7 +219,7 @@ void *vec_back(Cvector *vec);
 
 Return void pointer to last element
 
-#### Expamle:
+#### Example:
 ```
 printf("%d\n", *(int *)vec_back(vec));
 ```
@@ -251,7 +251,7 @@ size increases by one
 if the size becomes equal to capacity,
 vector reallocate all data to the new position with doubled capacity 
 
-#### Expamle:
+#### Example:
 ```
 *(int *)vec_insert(vec, 1) = 10;
 ```
@@ -278,7 +278,7 @@ snd set last element to zero
 
 size decreases by one
 
-#### Expamle:
+#### Example:
 ```
 vec_erase(vec, 1);
 ```
@@ -304,7 +304,7 @@ size increases by one
 if the size becomes equal to capacity,
 vector reallocate all data to the new position with doubled capacity 
 
-#### Expamle:
+#### Example:
 ```
 *(int *)vec_push(vec) = 4;
 ```
@@ -327,7 +327,7 @@ Pop last element
 
 size decreases by one
 
-#### Expamle:
+#### Example:
 ```
 vec_pop(vec);
 ```
